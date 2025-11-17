@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCC Organizational Survey</title>
+
+<style>
+:root {
+  --bg: #f8f9fa;
+  --card: #ffffff;
+  --border: #253551;
+  --accent: #00C2FF;
+  --text: #253551;
+  --muted: #5f6368;
+  --radius: 10px;
+  --font: "Segoe UI", Calibri, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 20px 120px;
+}
+
+.logo-top {
+  display: block;
+  margin: 0 auto 28px;
+  max-width: 140px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 32px;
+  background: var(--card);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+legend {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  gap: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.option input[type="radio"] {
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
+input[type="radio"]:checked {
+  accent-color: #253551;
+}
+
+.slider-row {
+  margin: 18px 0 12px;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #253551;
+  margin-bottom: 6px;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: #dadce0;
+  border-radius: 20px;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #253551;
+  cursor: pointer;
+}
+
+button {
+  margin-top: 40px;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #253551;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+button:hover {
+  background: #1e2c46;
+}
+
+.footer-logo {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  width: 80px;
+  opacity: 0.6;
+}
+
+.ai-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  backdrop-filter: blur(4px);
+}
+
+.ai-modal-content {
+  background: #0e1117;
+  color: #00C2FF;
+  padding: 40px 50px;
+  border-radius: 16px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 0 20px #00C2FF55;
+  animation: popIn 0.35s ease;
+}
+
+/* AI glowing brain */
+.ai-brain {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00C2FF 0%, #004b63 70%);
+  box-shadow: 0 0 20px #00C2FF;
+  animation: pulseAI 1.8s infinite;
+}
+
+@keyframes pulseAI {
+  0% { transform: scale(1); box-shadow: 0 0 15px #00C2FF; }
+  50% { transform: scale(1.15); box-shadow: 0 0 30px #00C2FF; }
+  100% { transform: scale(1); box-shadow: 0 0 15px #00C2FF; }
+}
+
+/* Typing effect */
+.ai-typing {
+  font-family: monospace;
+  font-size: 1.05rem;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #00C2FF;
+  animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+@media (max-width: 600px) {
+  fieldset { padding: 24px; }
+}
+</style>
+</head>
+
+<body>
+    <!-- HYPER AI MODAL -->
+<div id="aiModal" class="ai-modal">
+  <div class="ai-modal-content">
+    
+    <div class="ai-brain"></div>
+
+    <p id="aiText" class="ai-typing">Initializing…</p>
+
+  </div>
+</div>
+
+
+<div class="container">
+
+  <img src="logo.png" alt="CCC Logo" class="logo-top" />
+
+  <h1>Operational Diagnostic</h1>
+
+  <form id="surveyForm" method="POST">
+
+    <!-- PILLAR 1 — Leadership -->
+    <fieldset>
+      <legend>PILLAR 1 — Leadership</legend>
+
+      <label>1. Leaders consistently model the behaviours they expect from staff.</label>
+      <label class="option"><input type="radio" name="leadership_q1" value="4" required> Strongly Agree</label>
+      <label class="option"><input type="radio" name="leadership_q1" value="3"> Agree</label>
+      <label class="option"><input type="radio" name="leadership_q1" value="2"> Neutral</label>
+      <label class="option"><input type="radio" name="leadership_q1" value="1"> Disagree</label>
+      <label class="option"><input type="radio" name="leadership_q1" value="0"> Strongly Disagree</label>
+
+      <label>2. A leader becomes aware of a policy breach. What typically happens?</label>
+      <label class="option"><input type="radio" name="leadership_q2" value="4" required> Addressed promptly and transparently</label>
+      <label class="option"><input type="radio" name="leadership_q2" value="3"> Addressed quietly with the individual</label>
+      <label class="option"><input type="radio" name="leadership_q2" value="2"> Passed to someone else</label>
+      <label class="option"><input type="radio" name="leadership_q2" value="0"> Nothing happens</label>
+
+      <label>3. When strategic decisions are announced, leaders clearly explain the compliance implications.</label>
+      <label class="option"><input type="radio" name="leadership_q3" value="4" required> Very Clearly</label>
+      <label class="option"><input type="radio" name="leadership_q3" value="3"> Clearly</label>
+      <label class="option"><input type="radio" name="leadership_q3" value="2"> Somewhat</label>
+      <label class="option"><input type="radio" name="leadership_q3" value="0"> Not At All</label>
+
+      <label>4. How often do senior leaders reinforce expectations around conduct and values?</label>
+      <div class="slider-row">
+        <div class="slider-labels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <input type="range" name="leadership_q4" min="1" max="5">
+      </div>
+    </fieldset>
+
+    <!-- PILLAR 2 — Speak-Up Behaviour -->
+    <fieldset>
+      <legend>PILLAR 2 — Speak-Up Behaviour</legend>
+
+      <label>1. People in my team would feel safe raising concerns or misconduct.</label>
+      <label class="option"><input type="radio" name="speakup_q1" value="4" required> Strongly Agree</label>
+      <label class="option"><input type="radio" name="speakup_q1" value="3"> Agree</label>
+      <label class="option"><input type="radio" name="speakup_q1" value="2"> Neutral</label>
+      <label class="option"><input type="radio" name="speakup_q1" value="1"> Disagree</label>
+      <label class="option"><input type="radio" name="speakup_q1" value="0"> Strongly Disagree</label>
+
+      <label>2. A colleague witnesses wrongdoing. What typically happens?</label>
+      <label class="option"><input type="radio" name="speakup_q2" value="4" required> Escalates formally</label>
+      <label class="option"><input type="radio" name="speakup_q2" value="3"> Tells their manager quietly</label>
+      <label class="option"><input type="radio" name="speakup_q2" value="2"> Discusses with peers but no action</label>
+      <label class="option"><input type="radio" name="speakup_q2" value="0"> Stays silent</label>
+
+      <label>3. Concerns raised are taken seriously and addressed appropriately.</label>
+      <label class="option"><input type="radio" name="speakup_q3" value="4" required> Always</label>
+      <label class="option"><input type="radio" name="speakup_q3" value="3"> Often</label>
+      <label class="option"><input type="radio" name="speakup_q3" value="2"> Sometimes</label>
+      <label class="option"><input type="radio" name="speakup_q3" value="0"> Never</label>
+
+      <label>4. How confident are you that raising concerns will not lead to negative consequences?</label>
+      <div class="slider-row">
+        <div class="slider-labels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <input type="range" name="speakup_q4" min="1" max="5">
+      </div>
+    </fieldset>
+
+    <!-- PILLAR 3 — Risk Awareness -->
+    <fieldset>
+      <legend>PILLAR 3 — Risk Awareness</legend>
+
+      <label>1. People understand the key risks relevant to their roles.</label>
+      <label class="option"><input type="radio" name="risk_q1" value="4" required> Strongly Agree</label>
+      <label class="option"><input type="radio" name="risk_q1" value="3"> Agree</label>
+      <label class="option"><input type="radio" name="risk_q1" value="2"> Neutral</label>
+      <label class="option"><input type="radio" name="risk_q1" value="1"> Disagree</label>
+      <label class="option"><input type="radio" name="risk_q1" value="0"> Strongly Disagree</label>
+
+      <label>2. A team member notices data being handled incorrectly. What happens?</label>
+      <label class="option"><input type="radio" name="risk_q2" value="4" required> Escalates immediately</label>
+      <label class="option"><input type="radio" name="risk_q2" value="3"> Seeks advice informally</label>
+      <label class="option"><input type="radio" name="risk_q2" value="2"> Ignores it because it “happens”</label>
+      <label class="option"><input type="radio" name="risk_q2" value="0"> Unsure what to do</label>
+
+      <label>3. When deadlines are tight, how are controls treated?</label>
+      <label class="option"><input type="radio" name="risk_q3" value="4" required> Followed strictly</label>
+      <label class="option"><input type="radio" name="risk_q3" value="3"> Followed where possible</label>
+      <label class="option"><input type="radio" name="risk_q3" value="2"> Often bypassed</label>
+      <label class="option"><input type="radio" name="risk_q3" value="0"> Rarely followed</label>
+
+      <label>4. How confident are staff in identifying early warning signs or irregularities?</label>
+      <div class="slider-row">
+        <div class="slider-labels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <input type="range" name="risk_q4" min="1" max="5">
+      </div>
+    </fieldset>
+
+    <!-- PILLAR 4 — Accountability -->
+    <fieldset>
+      <legend>PILLAR 4 — Accountability</legend>
+
+      <label>1. People understand what they are accountable for.</label>
+      <label class="option"><input type="radio" name="accountability_q1" value="4" required> Strongly Agree</label>
+      <label class="option"><input type="radio" name="accountability_q1" value="3"> Agree</label>
+      <label class="option"><input type="radio" name="accountability_q1" value="2"> Neutral</label>
+      <label class="option"><input type="radio" name="accountability_q1" value="1"> Disagree</label>
+      <label class="option"><input type="radio" name="accountability_q1" value="0"> Strongly Disagree</label>
+
+      <label>2. Consequences for misconduct are applied consistently across all levels.</label>
+      <label class="option"><input type="radio" name="accountability_q2" value="4" required> Always</label>
+      <label class="option"><input type="radio" name="accountability_q2" value="3"> Often</label>
+      <label class="option"><input type="radio" name="accountability_q2" value="2"> Sometimes</label>
+      <label class="option"><input type="radio" name="accountability_q2" value="0"> Never</label>
+
+      <label>3. A project fails because a task was neglected. How is responsibility handled?</label>
+      <label class="option"><input type="radio" name="accountability_q3" value="4" required> Clear ownership & review</label>
+      <label class="option"><input type="radio" name="accountability_q3" value="3"> Shared broadly</label>
+      <label class="option"><input type="radio" name="accountability_q3" value="2"> Individual blamed without support</label>
+      <label class="option"><input type="radio" name="accountability_q3" value="0"> Quietly forgotten</label>
+
+      <label>4. How well do teams own mistakes and take corrective action?</label>
+      <div class="slider-row">
+        <div class="slider-labels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <input type="range" name="accountability_q4" min="1" max="5">
+      </div>
+    </fieldset>
+
+    <button type="submit">Calculate</button>
+  </form>
+
+</div>
+
+<img src="logo.png" alt="CCC Logo" class="footer-logo" />
+
+<script>
+document.getElementById("surveyForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  // Show modal
+  const modal = document.getElementById("aiModal");
+  const aiText = document.getElementById("aiText");
+  modal.style.display = "flex";
+
+  // Simple compliance/behavior AI messages
+  const messages = [
+    "Analyzing organizational behavior…",
+    "Evaluating leadership effectiveness…",
+    "Reviewing team speak-up culture…",
+    "Assessing risk awareness and controls…",
+    "Checking accountability and responsibility…",
+    "Synthesizing overall organizational insights…"
+  ];
+
+  let msgIndex = 0;
+
+  // Typewriter effect
+  function typeMessage(text, callback) {
+    aiText.textContent = "";
+    let i = 0;
+    const typing = setInterval(() => {
+      aiText.textContent += text[i];
+      i++;
+      if (i === text.length) {
+        clearInterval(typing);
+        setTimeout(callback, 400);
+      }
+    }, 28);
+  }
+
+  function runAISequence() {
+    if (msgIndex < messages.length) {
+      typeMessage(messages[msgIndex], () => {
+        msgIndex++;
+        runAISequence();
+      });
+    }
+  }
+
+  runAISequence();
+
+  // -------------------
+  // Scoring logic
+  // -------------------
+  const pillars = ["leadership","speakup","risk","accountability"];
+  const maxValues = {
+    leadership: [4,4,4,4],
+    speakup: [4,4,4,4],
+    risk: [4,4,4,4],
+    accountability: [4,4,4,4]
+  };
+
+  const pillarScores = {};
+
+  pillars.forEach(pillar => {
+    const responses = [];
+
+    for (let i = 1; i <= 3; i++) {
+      const radios = document.getElementsByName(`${pillar}_q${i}`);
+      let value = 0;
+      Array.from(radios).forEach(r => { if (r.checked) value = parseInt(r.value); });
+      responses.push(value);
+    }
+
+    const slider = document.querySelector(`input[name="${pillar}_q4"]`);
+    const sliderValue = parseInt(slider.value) - 1;
+    responses.push(sliderValue);
+
+    const normalized = responses.map((val, idx) => (val / maxValues[pillar][idx]) * 5);
+    const avg = normalized.reduce((a, b) => a + b, 0) / normalized.length;
+    pillarScores[pillar] = Math.max(1, parseFloat(avg.toFixed(2)));
+  });
+
+  const overallRaw =
+    (pillarScores.leadership +
+     pillarScores.speakup +
+     pillarScores.risk +
+     pillarScores.accountability) / 4;
+
+  const overall = Math.max(1, parseFloat(overallRaw.toFixed(2)));
+
+  localStorage.setItem("scores", JSON.stringify({
+    leadership: pillarScores.leadership,
+    speakup: pillarScores.speakup,
+    risk: pillarScores.risk,
+    accountability: pillarScores.accountability,
+    overall: overall
+  }));
+
+  // Redirect after messages complete (~4 sec)
+  setTimeout(() => {
+    window.location.href = "cc.html";
+  }, 4000);
+
+});
+</script>
+
+
+</body>
+</html>
